@@ -1,0 +1,201 @@
+:root {
+    --base: #000;
+    --half: #888;
+    --use: #fff;
+}
+
+#FlashApplication {
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    padding: 4px;
+    font-family: monospace;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--use);
+    background-color: var(--base);
+}
+
+#orvilium {
+    overflow-x: scroll;
+    overflow-y: scroll;
+    flex-grow: 2;
+    width: calc(100% - 8px);
+    margin: 4px;
+    font-size: 16px;
+}
+
+#orvilium > div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    white-space: nowrap;
+}
+
+#orvilium > div > .name {
+    user-select: none;
+    width: auto;
+    min-width: auto;
+    margin-right: 8px;
+    padding-right: 8px;
+    white-space: nowrap;
+    text-align: right;
+    font-weight: 800;
+    border-right: double 3px var(--use);
+    color: var(--use);
+}
+#orvilium > div > .message {
+    flex-grow: 2;
+}
+#orvilium.hideName > div > .name {
+    width: 0;
+    min-width: 0;
+    margin-right: 0;
+    padding-right: 0;
+    border-right: double 3px transparent;
+    color: transparent;
+}
+
+#orvilium > div > .message > .arrow {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin: 0 4px 0 0;
+    border-top: solid 6px transparent;
+    border-bottom: solid 6px transparent;
+    border-left: solid 12px var(--use);
+}
+
+#orvilium > div .textWarning {
+    color: #ff8;
+}
+#orvilium > div .textError {
+    color: #f88;
+}
+#orvilium > div .commandOption {
+    color: #8f8;
+}
+#orvilium > div .commandRandomA {
+    color: #8ff;
+}
+#orvilium > div .commandRandomB {
+    color: #88f;
+}
+#orvilium > div .commandNone {
+    color: #888;
+}
+#orvilium.monoColor > div .textWarning,
+#orvilium.monoColor > div .textError,
+#orvilium.monoColor > div .commandOption,
+#orvilium.monoColor > div .commandRandomA,
+#orvilium.monoColor > div .commandRandomB,
+#orvilium.monoColor > div .commandNone {
+    color: var(--use);
+}
+
+#user {
+    width: 100%;
+}
+
+#user > div {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#user > .information {
+    justify-content: space-between;
+}
+
+#user > .information > div {
+    user-select: none;
+    margin: 4px;
+    font-weight: 800;
+    font-size: 12px;
+}
+
+#user > .command > button {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 26px;
+    margin: 4px;
+    padding: 2px;
+    text-decoration: none;
+    text-align: center;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: 12px;
+    border: solid 1px var(--use);
+    outline: none;
+    appearance: none;
+    color: inherit;
+    background-color: inherit;
+    background: inherit;
+}
+#user > .command > button:hover {
+    color: var(--base);
+    background-color: var(--use);
+}
+#user > .command > button:active {
+    color: inherit;
+    background-color: inherit;
+}
+#user > .command > input {
+    flex-grow: 1;
+    width: 58px;
+    height: 20px;
+    margin: 4px;
+    padding: 2px;
+    text-decoration: none;
+    text-align: left;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    border: solid 1px var(--use);
+    outline: none;
+    appearance: none;
+    color: inherit;
+    background-color: inherit;
+    background: inherit;
+}
+#user > .command > input:hover {
+    color: var(--base);
+    background-color: var(--use);
+}
+#user > .command > button:active {
+    color: inherit;
+    background-color: inherit;
+}
+
+@media screen and (max-width: 959px) {
+    #user > .command > .buttonA {
+        display: none;
+    }
+    #user > .command > .buttonB {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    #user > .command > .buttonC {
+        display: none;
+    }
+}
+
+@media print {
+    #user {
+        display: none;
+    }
+
+    #orvilium > div > .message > .arrow {
+        border-left: solid 12px var(--half);
+    }
+}
