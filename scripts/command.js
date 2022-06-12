@@ -79,6 +79,9 @@ function runCommand(specify) {
         case 'lab':
             commandName = findLabCommand(command);
             break;
+        case 'util':
+            commandName = findUtilCommand(command);
+            break;
     }
 
     if (commandName) commandName = findCommonCommand(command);
@@ -364,7 +367,7 @@ function returnDirectory(dictionaryObject) {
         }
     } else {
         if (currentDirectory.length > 0) {
-            const roomName = dictionaryObject.find((item) => item.command == currentDirectory.pop()).name;
+            const roomName = dictionaryObject.find((item) => item.command == currentDirectory.slice(-1)[0] && currentDirectory.pop()).name;
 
             speakOrvilium(`部屋「${roomName}」を退室したよ。`, 0);
         } else {

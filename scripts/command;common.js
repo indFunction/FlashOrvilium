@@ -103,6 +103,12 @@ const roomCommandDictionary = [
         name: '実験室',
         description: '部屋「実験室」にてコマンドを実行します。',
         end: false
+    },
+    {
+        command: 'util',
+        name: 'ユーティリティー',
+        description: '部屋「ユーティリティー」にてコマンドを実行します。',
+        end: false
     }
 ];
 

@@ -2,6 +2,9 @@
     --base: #000;
     --half: #888;
     --use: #fff;
+    --linkNormal: #44f;
+    --linkHover: #33e;
+    --linkActive: #22d;
 }
 
 #FlashApplication {
@@ -96,6 +99,21 @@
 #orvilium.monoColor > div .commandRandomB,
 #orvilium.monoColor > div .commandNone {
     color: var(--use);
+}
+
+#orvilium > div a {
+    text-decoration: none;
+    border-bottom: solid 1px var(--linkNormal);
+    color: var(--linkNormal);
+    background-color: transparent;
+}
+#orvilium > div a:hover {
+    border-bottom: solid 1px var(--linkHover);
+    color: var(--linkHover);
+}
+#orvilium > div a:active {
+    border-bottom: solid 1px var(--linkActive);
+    color: var(--linkActive);
 }
 
 #user {

@@ -83,3 +83,24 @@ xors.getNextInt = (min, max) => {
 
     return min + (r % (max - min + 1));
 };
+
+function generateRandomString(charset, length) {
+    let res = '';
+
+    for (let i = 0; i < length; i++) res += charset.substr(Math.random() * charset.length, 1);
+
+    return res;
+}
+
+function escapeHTML(text) {
+    return text.replace(
+        /["&'<>]/g,
+        char => ({
+            '"': '&quot;',
+            '&': '&amp;',
+            '\'': '&#39;',
+            '<': '&lt;',
+            '>': '&gt;'
+        }[char])
+    );
+}

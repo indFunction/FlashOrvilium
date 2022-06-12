@@ -37,7 +37,8 @@ const scripts = [
     '/scripts/history.js',
     '/scripts/utility.js',
     '/scripts/command;common.js',
-    '/scripts/command;lab.js'
+    '/scripts/command;lab.js',
+    '/scripts/command;util.js'
 ];
 
 scripts.map((item) => {
