@@ -13,6 +13,8 @@ let isFullScreenMode = false;
 let isStepMode = false;
 
 const tab = (indent) => '&nbsp'.repeat(indent);
+const sof = (line) => `-SoF-${'-'.repeat(line > 5 ? line - 5 : 0)}`;
+const eof = (line) => `${'-'.repeat(line > 5 ? line - 5 : 0)}-EoF-`;
 
 commandElement.addEventListener('keydown', getCommand);
 
