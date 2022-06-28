@@ -369,15 +369,15 @@ function generateGameOfLife(optionObject, randomArray) {
     if (isStepMode) property.speed = 0;
 
     speakOrvilium(`ライフゲームの規則
-        &nbsp;&nbsp;&nbsp;&nbsp;生成する世代数：${property.generateNum}世代
-        &nbsp;&nbsp;&nbsp;&nbsp;生成する速度：${property.speed}ms
-        &nbsp;&nbsp;&nbsp;&nbsp;空間のサイズ：${property.sizeX} * ${property.sizeY}セル
-        &nbsp;&nbsp;&nbsp;&nbsp;空間の種類：${property.isLimitedSpace ? '断片的' : '連続的'}
-        &nbsp;&nbsp;&nbsp;&nbsp;条件範囲・半径：${property.checkRadius}セル
-        &nbsp;&nbsp;&nbsp;&nbsp;生存条件：${property.aliveMinCells} ~ ${property.aliveMaxCells}セル
-        &nbsp;&nbsp;&nbsp;&nbsp;誕生条件：${property.bornMinCells} ~ ${property.bornMaxCells}セル
-        &nbsp;&nbsp;&nbsp;&nbsp;再生方法：${isStepMode ? '手動再生' : '自動再生'}
-        &nbsp;&nbsp;&nbsp;&nbsp;描画方法：${isFullScreenMode ? '全画面表示' : 'コンソール表示'}`, 0);
+        ${tab(4)}生成する世代数：${property.generateNum}世代
+        ${tab(4)}生成する速度：${property.speed}ms
+        ${tab(4)}空間のサイズ：${property.sizeX} * ${property.sizeY}セル
+        ${tab(4)}空間の種類：${property.isLimitedSpace ? '断片的' : '連続的'}
+        ${tab(4)}条件範囲・半径：${property.checkRadius}セル
+        ${tab(4)}生存条件：${property.aliveMinCells} ~ ${property.aliveMaxCells}セル
+        ${tab(4)}誕生条件：${property.bornMinCells} ~ ${property.bornMaxCells}セル
+        ${tab(4)}再生方法：${isStepMode ? '手動再生' : '自動再生'}
+        ${tab(4)}描画方法：${isFullScreenMode ? '全画面表示' : 'コンソール表示'}`, 0);
 
     speakOrvilium('ライフゲームの生成を開始するよ。', 0);
 

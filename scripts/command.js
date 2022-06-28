@@ -12,6 +12,8 @@ let stopCommand = undefined;
 let isFullScreenMode = false;
 let isStepMode = false;
 
+const tab = (indent) => '&nbsp'.repeat(indent);
+
 commandElement.addEventListener('keydown', getCommand);
 
 const typeList = [
