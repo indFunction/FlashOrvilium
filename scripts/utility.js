@@ -100,7 +100,8 @@ function escapeHTML(text) {
             '&': '&amp;',
             '\'': '&#39;',
             '<': '&lt;',
-            '>': '&gt;'
+            '>': '&gt;',
+            ' ': '&nbsp;'
         }[char])
     );
 }

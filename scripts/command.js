@@ -95,7 +95,7 @@ function runCommand(specify) {
 }
 
 function sliceCommandArray(command, argument) {
-    const commandArray = identifyStringArray(command, /[\s+]/);
+    const commandArray = identifyStringArray(command, /\x20/, ' ');
 
     let commandObject = {
         fixed: [],
@@ -134,14 +134,14 @@ function sliceCommandArray(command, argument) {
                 }
             }
 
-            commandObject.random.data.push(itemA);
+            commandObject.random.data.push(itemA.replace(/\x20/g, '&nbsp;'));
         }
     });
 
     return commandObject;
 }
 
-function identifyStringArray(string, splitChar) {
+function identifyStringArray(string, splitChar, joinChar) {
     if (splitChar == '"' || splitChar == `'`) return undefined;
 
     const array = string.split(splitChar);
@@ -156,7 +156,7 @@ function identifyStringArray(string, splitChar) {
                 isSingleQuotation = item.startsWith(`'`);
 
                 if ((!isSingleQuotation && item.endsWith('"')) || (isSingleQuotation && item.endsWith(`'`))) {
-                    buf += splitChar + item;
+                    buf += joinChar + item;
 
                     res.push(isSingleQuotation ? buf.split(`'`)[1] : buf.split('"')[1]);
                 } else {
@@ -166,7 +166,7 @@ function identifyStringArray(string, splitChar) {
                 res.push(item);
             }
         } else {
-            buf += splitChar + item;
+            buf += joinChar + item;
 
             if ((!isSingleQuotation && item.endsWith('"')) || (isSingleQuotation && item.endsWith(`'`))) {
                 res.push(isSingleQuotation ? buf.split(`'`)[1] : buf.split('"')[1]);
