@@ -38,7 +38,7 @@ function getCommand(event) {
         case 13:
             if (isStepMode) {
                 intervalCommand();
-            } else {
+            } else if (!event.shiftKey) {
                 runCommand();
             }
             break;

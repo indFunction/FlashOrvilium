@@ -120,7 +120,8 @@
     width: 100%;
 }
 
-#user > div {
+#user > div,
+#user > form {
     display: flex;
     flex-wrap: wrap;
 }
@@ -166,10 +167,12 @@
     color: inherit;
     background-color: inherit;
 }
-#user > .command > input {
+#user > .command > textarea {
     flex-grow: 1;
     width: 58px;
+    min-width: 58px;
     height: 20px;
+    min-height: 20px;
     margin: 4px;
     padding: 2px;
     text-decoration: none;

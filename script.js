@@ -19,14 +19,14 @@ document.write(`
                 <div id="directory">ロビー</div>
                 <div id="clock">****.**.** **:**:**</div>
             </div>
-            <div class="command">
+            <form class="command" onkeypress="if (event.keyCode == 13) {if (event.shiftKey == true) {event.returnValue = true;} else {event.returnValue = false;}}" onsubmit="return false;">
                 <button class="buttonA" onclick="copyCommand()">取写</button>
                 <button class="buttonB" onclick="pasteCommand()">書写</button>
                 <button class="buttonC" onclick="deleteCommand()">削除</button>
                 <button class="buttonD" onclick="runCommand()">実行</button>
                 <button class="buttonE" onclick="stopIntervalCommand()">停止</button>
-                <input type="text" id="command" />
-            </div>
+                <textarea type="text" id="command"></textarea>
+            </form>
         </div>
     </div>
 `);
