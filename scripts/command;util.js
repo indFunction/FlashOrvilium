@@ -109,6 +109,44 @@ const utilCommandDictionary = [
                 '使用する文字パターンを指定します。'
             ]
         }
+    },
+    {
+        command: 'dice',
+        description: '賽を振ります。',
+        end: true,
+        option: [
+            {
+                name: 'n',
+                type: 'int',
+                description: '賽の数を指定します。初期値は1です。'
+            },
+            {
+                name: 'r',
+                type: 'int',
+                description: '賽の目の数を指定します。初期値は6です。'
+            },
+            {
+                name: 's',
+                type: 'int',
+                description: '連続で実行する速度（ミリ秒）を設定します。初期値は0です。'
+            },
+            {
+                name: 'p',
+                type: 'void',
+                description: '手動で再生します。'
+            },
+            {
+                name: 'f',
+                type: 'void',
+                description: '画面から不要な要素を排除して（全画面で）再生します。'
+            }
+        ],
+        random: {
+            need: -1,
+            description: [
+                '使用する文字パターン（賽の目）を指定します。'
+            ]
+        }
     }
 ];
 
@@ -131,6 +169,9 @@ function findUtilCommand(command) {
             break;
         case 'count':
             countRandom(commandObject.option, commandObject.random.data);
+            break;
+        case 'dice':
+            shakeDice(commandObject.option, commandObject.random.data);
             break;
         case 'help':
             putCommandList(commandObject.random.data, utilCommandDictionary);
@@ -333,5 +374,94 @@ function countRandom(optionObject, randomArray) {
             ${sof(returnLineStringLength * 2)}
             ${res}
             ${eof(returnLineStringLength * 2)}`, 0);
+    }
+}
+
+function shakeDice(optionObject, randomArray) {
+    const num = getCommandOption(optionObject, 'dice', 'n', utilCommandDictionary);
+    const roll = getCommandOption(optionObject, 'dice', 'r', utilCommandDictionary);
+    const speed = getCommandOption(optionObject, 'dice', 's', utilCommandDictionary);
+    const eyes = randomArray.length > 0 ? randomArray : undefined;
+    const isStep = getCommandOption(optionObject, 'dice', 'p', utilCommandDictionary);
+    const isFullScreen = getCommandOption(optionObject, 'dice', 'f', utilCommandDictionary);
+
+    clearInterval(intervalCommand);
+
+    let property = {
+        num: 1,
+        roll: 6,
+        speed: 0,
+        eyes: eyes
+    };
+
+    let count = 0;
+    let buffer = undefined;
+
+    if (num != undefined) {
+        const buf = fixValueRange(num, 1, -1, 0);
+
+        property.num = buf;
+
+        if (buf == -1) speakOrvilium('負の回数はオーバーフローに…おっと、この世界にオーバーフローという概念はなかったね。つまり無限だね。', 1);
+    }
+
+    if (roll != undefined) {
+        const buf = fixValueRange(roll, 1, 1, 0);
+
+        property.roll = buf;
+
+        if (roll != buf) speakOrvilium('裏がなければ表もない…いやいや、虚無を振ることはできないよ。', 1);
+    }
+
+    if (speed != undefined) {
+        const buf = fixValueRange(speed, 1, 0, 0);
+
+        property.speed = buf;
+
+        if (speed != buf) speakOrvilium('神だったら賽を逆に振ることができるのかもしれないけれど…僕は無理だよ。', 1);
+    }
+
+    isStepMode = isStep != undefined;
+    isFullScreenMode = isFullScreen != undefined;
+
+    const playDice = () => {
+        const rnd = Math.floor(Math.random() * (property.eyes ? property.eyes.length : property.roll));
+        const res = property.eyes ? property.eyes[rnd] : (rnd + 1).toString();
+
+        if (isFullScreenMode) clearLog();
+
+        speakOrvilium(res, 0);
+
+        buffer = res;
+
+        if (!isFullScreenMode) displayElement.scrollTo(0, displayElement.scrollHeight);
+
+        if (property.num > 0) {
+            count++;
+
+            if (count >= property.num) stopIntervalCommand();
+        }
+    };
+
+    const stopDice = () => {
+        speakOrvilium('賽を振り終えたよ。', 0);
+
+        if (isFullScreen && buffer) speakOrvilium(`最後に出た目は…「${buffer}」でした！`, 0);
+    };
+
+    if (isStepMode) property.speed = 0;
+
+    if (property.num != 0) {
+        if (isStepMode || isFullScreenMode || property.num == -1 || property.speed > 0) {
+            speakOrvilium('賽を振り始めるよ。', 0);
+
+            startIntervalCommand(playDice, stopDice, property.speed);
+        } else {
+            for (let i = 0; i < property.num; i++) playDice();
+        }
+    } else {
+        speakOrvilium('カラカラ…虚無！', 2);
+
+        stopIntervalCommand();
     }
 }

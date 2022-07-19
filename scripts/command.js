@@ -312,12 +312,14 @@ function normalizeCommandRandom(commandObject, dictionaryItem, warningLog, error
     const needLength = dictionaryItem.random.need;
     const useLength = dictionaryItem.random.description.length;
 
-    if (existLength == needLength || existLength >= useLength) {
-        commandObject.random.data = concatSurplusArray(commandObject.random.data, useLength, ' ');
+    if (needLength >= 0) {
+        if (existLength == needLength || existLength >= useLength) {
+            commandObject.random.data = concatSurplusArray(commandObject.random.data, useLength, ' ');
 
-        if (existLength != needLength && existLength != useLength) warningLog.push(`${useLength}項目以降のランダムは結合されたよ。`);
-    } else {
-        errorLog.push('ランダムの数が少ないよ。');
+            if (existLength != needLength && existLength != useLength) warningLog.push(`${useLength}項目以降のランダムは結合されたよ。`);
+        } else {
+            errorLog.push('ランダムの数が少ないよ。');
+        }
     }
 }
 
