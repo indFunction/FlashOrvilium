@@ -32,6 +32,21 @@ function deleteCommand() {
     commandElement.value = '';
 }
 
+function fixValueRange(val, mode, min, max) {
+    if (isNaN(val)) return undefined;
+
+    if (mode < 0 || mode > 2) mode = 0;
+    if (min > max) max = min;
+
+    if (val < min && (mode == 0 || mode == 1)) {
+        return min;
+    } else if (val > max && (mode == 0 || mode == 2)) {
+        return max;
+    } else {
+        return val;
+    }
+};
+
 function getStringDate(date) {
     return [
         String(date.getFullYear()).padStart(4, '0'),

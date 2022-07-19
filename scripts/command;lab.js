@@ -144,22 +144,7 @@ function generateGameOfLife(optionObject, randomArray) {
 
     let cells = undefined;
 
-    const fixValueRange = (val, mode, min, max) => {
-        if (isNaN(val)) return undefined;
-
-        if (mode < 0 || mode > 2) mode = 0;
-        if (min > max) max = min;
-
-        if (val < min && (mode == 0 || mode == 1)) {
-            return min;
-        } else if (val > max && (mode == 0 || mode == 2)) {
-            return max;
-        } else {
-            return val;
-        }
-    };
-
-    if (generateNum) {
+    if (generateNum != undefined) {
         const buf = fixValueRange(generateNum, 1, -1, 0);
 
         property.generateNum = buf;
@@ -167,7 +152,7 @@ function generateGameOfLife(optionObject, randomArray) {
         if (buf == -1) speakOrvilium('生と死は循環するけれど、一方的な流れに逆らうことはできないよ。もしくは、永遠かな。', 1);
     }
 
-    if (speed) {
+    if (speed != undefined) {
         const buf = fixValueRange(speed, 1, 0, 0);
 
         property.speed = buf;
@@ -175,7 +160,7 @@ function generateGameOfLife(optionObject, randomArray) {
         if (speed != buf) speakOrvilium('ライフゲームの世代交代は不可逆だから、前の世代を求めることは至難の業だよ。', 1);
     }
 
-    if (sizeX) {
+    if (sizeX != undefined) {
         const buf = fixValueRange(sizeX, 1, 3, 0);
 
         property.sizeX = buf;
@@ -183,7 +168,7 @@ function generateGameOfLife(optionObject, randomArray) {
         if (sizeX != buf) speakOrvilium('天邪空間は現代にまだ存在しないよ。勝手ながら、横幅を3に設定したよ。', 1);
     }
 
-    if (sizeY) {
+    if (sizeY != undefined) {
         const buf = fixValueRange(sizeY, 1, 3, 0);
 
         property.sizeY = buf;
@@ -191,7 +176,7 @@ function generateGameOfLife(optionObject, randomArray) {
         if (sizeY != buf) speakOrvilium('天邪空間は現代にまだ存在しないよ。勝手ながら、縦幅を3に設定したよ。', 1);
     }
 
-    if (checkRadius) {
+    if (checkRadius != undefined) {
         const size = property.sizeX < property.sizeY ? property.sizeX : property.sizeY;
         const buf = fixValueRange(checkRadius, 0, 1, size - 1);
 
@@ -200,7 +185,7 @@ function generateGameOfLife(optionObject, randomArray) {
         if (checkRadius != buf) speakOrvilium(`条件範囲は狭すぎても広すぎても駄目だよ。勝手ながら、半径を${buf}に設定したよ。`, 1);
     }
 
-    if (aliveMinCells || aliveMaxCells) {
+    if (aliveMinCells != undefined || aliveMaxCells != undefined) {
         const radiusFill = Math.pow(1 + property.checkRadius * 2, 2);
         let bufA = fixValueRange(aliveMinCells, 0, 0, radiusFill);
         let bufB = fixValueRange(aliveMaxCells, 0, 0, radiusFill);
@@ -227,7 +212,7 @@ function generateGameOfLife(optionObject, randomArray) {
         }
     }
 
-    if (bornMinCells || bornMaxCells) {
+    if (bornMinCells != undefined || bornMaxCells != undefined) {
         const radiusFill = Math.pow(1 + property.checkRadius * 2, 2);
         let bufA = fixValueRange(bornMinCells, 0, 0, radiusFill);
         let bufB = fixValueRange(bornMaxCells, 0, 0, radiusFill);
@@ -378,6 +363,12 @@ function generateGameOfLife(optionObject, randomArray) {
         ${tab(4)}誕生条件：${property.bornMinCells} ~ ${property.bornMaxCells}セル
         ${tab(4)}再生方法：${isStepMode ? '手動再生' : '自動再生'}
         ${tab(4)}描画方法：${isFullScreenMode ? '全画面表示' : 'コンソール表示'}`, 0);
+
+    if (property.generateNum == 0) {
+        speakOrvilium('うーん…0世代目という概念は、もしかすると1世代目の間違いかもしれないよ。', 2);
+
+        return;
+    }
 
     speakOrvilium('ライフゲームの生成を開始するよ。', 0);
 
